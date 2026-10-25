@@ -5,14 +5,15 @@ from menu import M, PRICE
 from PIL import Image, ImageFilter
 import numpy as np
 W, H = 1080, 1350
+FS = '/tmp/w/node_modules/@fontsource/'
 FONT = '/tmp/w/node_modules/vazirmatn/fonts/ttf/' if os.path.exists('/tmp/w') else 'fonts/'
 def background():
     rng = np.random.default_rng(7)
     yy, xx = np.mgrid[0:H, 0:W]
-    vig = 1 - 0.28 * (((xx - W/2)**2 + (yy - H/2)**2) / (W/2)**2 / 1.5)
+    vig = 1 - 0.22 * (((xx - W/2)**2 + (yy - H/2)**2) / (W/2)**2 / 1.5)
     n = rng.normal(0, 9, (H, W))
     n = np.asarray(Image.fromarray((n*3+128).clip(0, 255).astype('uint8')).filter(ImageFilter.GaussianBlur(1.1))).astype(float) - 128
-    a = np.array([133, 25, 3], float)[None, None, :] * vig[:, :, None] + n[:, :, None] / 3
+    a = np.array([176, 66, 38], float)[None, None, :] * vig[:, :, None] + n[:, :, None] / 3
     bg = Image.fromarray(a.clip(0, 255).astype('uint8'))
     logo = Image.open('img/logo.png').resize((170, 170), Image.LANCZOS)
     bg.paste(logo, ((W-170)//2, 38), logo)
@@ -36,18 +37,21 @@ def compose(pid):
 def fa(n): return str(n).translate(str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹'))
 def price(c): return fa(f'{PRICE[c]:,}').replace(',', '٬') + ' تومان'
 CSS = f"""
-@font-face{{font-family:V;src:url('file://{FONT}Vazirmatn-Regular.ttf');font-weight:400}}
-@font-face{{font-family:V;src:url('file://{FONT}Vazirmatn-Bold.ttf');font-weight:700}}
-@font-face{{font-family:V;src:url('file://{FONT}Vazirmatn-ExtraBold.ttf');font-weight:800}}
-*{{margin:0;box-sizing:border-box}}body{{width:{W}px;height:{H}px;font-family:V,'DejaVu Sans',sans-serif;color:#fff4e0;position:relative;overflow:hidden}}
+@font-face{{font-family:L;src:url('file://{FS}lalezar/files/lalezar-arabic-400-normal.woff2');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
+@font-face{{font-family:L;src:url('file://{FS}lalezar/files/lalezar-latin-400-normal.woff2');unicode-range:U+0000-00FF}}
+@font-face{{font-family:E;src:url('file://{FS}estedad/files/estedad-arabic-400-normal.woff2');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
+@font-face{{font-family:E;src:url('file://{FS}estedad/files/estedad-latin-400-normal.woff2');unicode-range:U+0000-00FF}}
+@font-face{{font-family:P;src:url('file://{FS}playfair-display/files/playfair-display-latin-700-normal.woff2')}}
+@font-face{{font-family:C;src:url('file://{FS}cormorant-garamond/files/cormorant-garamond-latin-700-normal.woff2')}}
+*{{margin:0;box-sizing:border-box}}body{{width:{W}px;height:{H}px;font-family:E,sans-serif;color:#fff6e6;position:relative;overflow:hidden}}
 img{{position:absolute;inset:0}}
-.t{{position:absolute;left:60px;right:60px;top:925px;text-align:center}}
-.fa{{font-size:70px;font-weight:800;line-height:1.25;direction:rtl}}
-.en{{font-family:'DejaVu Sans',Arial,sans-serif;font-size:34px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#f2c879;margin-top:2px}}
-.ln{{width:140px;height:3px;background:#f2c879;margin:20px auto 16px;opacity:.8}}
-.if{{font-size:29px;direction:rtl;line-height:1.5;opacity:.95}}
-.ie{{font-family:'DejaVu Sans',Arial,sans-serif;font-size:24px;line-height:1.4;opacity:.8;margin-top:6px}}
-.pr{{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-size:44px;font-weight:800;color:#f2c879;direction:rtl}}
+.t{{position:absolute;left:60px;right:60px;top:915px;text-align:center}}
+.fa{{font-family:L,E;font-size:84px;line-height:1.2;direction:rtl;text-shadow:0 3px 10px rgba(60,10,0,.35)}}
+.en{{font-family:P,serif;font-size:34px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#ffe2a3;margin-top:4px}}
+.ln{{width:140px;height:3px;background:#ffe2a3;margin:20px auto 16px;opacity:.85}}
+.if{{font-family:E;font-size:30px;direction:rtl;line-height:1.6}}
+.ie{{font-family:C,serif;font-size:30px;font-weight:700;line-height:1.25;margin-top:6px;opacity:.92}}
+.pr{{position:absolute;bottom:30px;left:0;right:0;text-align:center;font-family:L,E;font-size:54px;color:#ffe2a3;direction:rtl}}
 """
 def html(item, b64):
     slug, pid, c, f, e, i_f, i_e = item
