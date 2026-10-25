@@ -36,26 +36,28 @@ def compose(pid):
     return bg.convert('RGB')
 def fa(n): return str(n).translate(str.maketrans('0123456789', '۰۱۲۳۴۵۶۷۸۹'))
 def price(c): return fa(f'{PRICE[c]:,}').replace(',', '٬') + ' تومان'
+def U(p):
+    return 'data:font/woff2;base64,' + base64.b64encode(open(FS + p, 'rb').read()).decode()
 CSS = f"""
-@font-face{{font-family:L;src:url('file://{FS}lalezar/files/lalezar-arabic-400-normal.woff2');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
-@font-face{{font-family:L;src:url('file://{FS}lalezar/files/lalezar-latin-400-normal.woff2');unicode-range:U+0000-00FF}}
-@font-face{{font-family:E;src:url('file://{FS}estedad/files/estedad-arabic-400-normal.woff2');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
-@font-face{{font-family:E;src:url('file://{FS}estedad/files/estedad-latin-400-normal.woff2');unicode-range:U+0000-00FF}}
-@font-face{{font-family:P;src:url('file://{FS}playfair-display/files/playfair-display-latin-700-normal.woff2')}}
-@font-face{{font-family:C;src:url('file://{FS}cormorant-garamond/files/cormorant-garamond-latin-700-normal.woff2')}}
+@font-face{{font-family:L;src:url('{U("aref-ruqaa/files/aref-ruqaa-arabic-700-normal.woff2")}');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
+@font-face{{font-family:L;src:url('{U("aref-ruqaa/files/aref-ruqaa-latin-700-normal.woff2")}');unicode-range:U+0000-00FF}}
+@font-face{{font-family:E;src:url('{U("lemonada/files/lemonada-arabic-600-normal.woff2")}');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
+@font-face{{font-family:E;src:url('{U("lemonada/files/lemonada-latin-600-normal.woff2")}');unicode-range:U+0000-00FF}}
+@font-face{{font-family:P;src:url('{U("pacifico/files/pacifico-latin-400-normal.woff2")}')}}
 *{{margin:0;box-sizing:border-box}}body{{width:{W}px;height:{H}px;font-family:E,sans-serif;color:#fff6e6;position:relative;overflow:hidden}}
 img{{position:absolute;inset:0}}
-.t{{position:absolute;left:60px;right:60px;top:915px;text-align:center}}
-.fa{{font-family:L,E;font-size:84px;line-height:1.2;direction:rtl;text-shadow:0 3px 10px rgba(60,10,0,.35)}}
-.en{{font-family:P,serif;font-size:34px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#ffe2a3;margin-top:4px}}
-.ln{{width:140px;height:3px;background:#ffe2a3;margin:20px auto 16px;opacity:.85}}
-.if{{font-family:E;font-size:30px;direction:rtl;line-height:1.6}}
-.ie{{font-family:C,serif;font-size:30px;font-weight:700;line-height:1.25;margin-top:6px;opacity:.92}}
-.pr{{position:absolute;bottom:30px;left:0;right:0;text-align:center;font-family:L,E;font-size:54px;color:#ffe2a3;direction:rtl}}
+.t{{position:absolute;left:60px;right:60px;top:905px;text-align:center}}
+.fa{{font-family:L;font-weight:700;font-size:92px;line-height:1.3;direction:rtl;text-shadow:0 3px 10px rgba(60,10,0,.35)}}
+.en{{font-family:P,cursive;font-size:44px;color:#ffe2a3;margin-top:0}}
+.ln{{width:140px;height:3px;background:#ffe2a3;margin:18px auto 14px;opacity:.85}}
+.if{{font-family:E;font-size:25px;direction:rtl;line-height:1.7}}
+.ie{{font-family:E;font-size:21px;line-height:1.4;margin-top:4px;opacity:.92}}
+.lg .if{{font-size:22px;line-height:1.5}}.lg .ie{{font-size:18px}}.lg .fa{{font-size:84px}}
+.pr{{position:absolute;bottom:26px;left:0;right:0;text-align:center;font-family:E;font-size:52px;color:#ffe2a3;direction:rtl}}
 """
 def html(item, b64):
     slug, pid, c, f, e, i_f, i_e = item
-    return f"<html><meta charset=utf-8><style>{CSS}</style><body><img src='data:image/jpeg;base64,{b64}'><div class=t><div class=fa>{f}</div><div class=en>{e}</div><div class=ln></div><div class=if>{i_f}</div><div class=ie>{i_e}</div></div><div class=pr>{price(c)}</div></body></html>"
+    return f"<html><meta charset=utf-8><style>{CSS}</style><body><img src='data:image/jpeg;base64,{b64}'><div class='t{" lg" if len(i_f)>55 or len(i_e)>80 else ""}'><div class=fa>{f}</div><div class=en>{e}</div><div class=ln></div><div class=if>{i_f}</div><div class=ie>{i_e}</div></div><div class=pr>{price(c)}</div></body></html>"
 async def main(only=None):
     from playwright.async_api import async_playwright
     os.makedirs('img/cards', exist_ok=True)
@@ -65,7 +67,7 @@ async def main(only=None):
             if only and it[0] not in only: continue
             buf = io.BytesIO(); compose(it[1]).save(buf, 'JPEG', quality=93)
             await pg.set_content(html(it, base64.b64encode(buf.getvalue()).decode()))
-            await pg.wait_for_timeout(120)
+            await pg.evaluate("document.fonts.ready"); await pg.wait_for_timeout(300)
             await pg.screenshot(path=f'img/cards/{it[0]}.jpg', type='jpeg', quality=92)
         await br.close()
 asyncio.run(main(sys.argv[1:] or None))
