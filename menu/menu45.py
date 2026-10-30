@@ -55,12 +55,12 @@ M = [
 ("chocolate-cake","cake","plate","کیک شکلاتی","Chocolate Fudge Cake","کیک کاکائویی + گاناش شکلات","Cocoa cake + chocolate ganache","a slice of chocolate fudge cake"),
 ]
 CONTAINER = {
- "mug": "served in a wide, low, short ceramic coffee mug with a smooth solid plain milk-coffee beige-brown glaze (Nescafe-like light brown, one uniform color, glossy-smooth, no speckles, no dots, no pattern), with a small handle (not a white cup, not a saucer set)",
+ "mug": "served in a large, wide, generously sized ceramic coffee mug (big cup, about 350 ml) with a smooth solid plain milk-coffee beige-brown glaze (Nescafe-like light brown, one uniform color, glossy-smooth, no speckles, no dots, no pattern), with a handle (not a white cup, not a saucer set)",
  "glass": "served in a tall clear glass tumbler",
  "goblet": "served in a clear footed glass goblet (stemmed milkshake glass)",
  "plate": "on a simple matte dark stoneware plate",
 }
-STYLE = "Professional studio food photograph, on a rustic dark wooden cafe table, soft warm side light, shallow depth of field, clean uncluttered background, vertical 4:5 framing, no text, no logo, no hands."
+STYLE = "Professional studio food photograph, on a clean modern cafe bar counter, with a softly blurred barista bar and espresso machine in the background, soft warm side light, shallow depth of field, clean uncluttered background, vertical 4:5 framing, no text, no logo, no hands, no spoon, no extra objects."
 def prompt(m):
     return f"{m[7].capitalize()}, {CONTAINER[m[2]]}. {STYLE}"
 if __name__ == "__main__":
