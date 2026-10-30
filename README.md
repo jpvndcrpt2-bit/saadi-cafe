@@ -1,6 +1,6 @@
 # Saadi Café (کافه سعدی)
 
-Project for Saadi Café.
+Brand assets and digital menu for Saadi Café.
 
-- `img/original/` — product photos as supplied
-- `img/branded/` — same photos placed on one identical Saadi Café background with the café logo
+- `img/logo.png`, `img/background.jpg` — logo and brand background
+- `img/saadi-menu-qr.png` — QR code for the menu site
