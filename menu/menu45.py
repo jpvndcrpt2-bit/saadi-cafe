@@ -55,7 +55,7 @@ M = [
 ("chocolate-cake","cake","plate","کیک شکلاتی","Chocolate Fudge Cake","کیک کاکائویی + گاناش شکلات","Cocoa cake + chocolate ganache","a slice of chocolate fudge cake"),
 ]
 CONTAINER = {
- "mug": "served in a small, distinctive handmade matte ceramic espresso mug in a light caramel-brown glaze with a small handle (not a white cup, not a saucer set)",
+ "mug": "served in a wide, low, short ceramic coffee mug with a smooth solid plain milk-coffee beige-brown glaze (Nescafe-like light brown, one uniform color, glossy-smooth, no speckles, no dots, no pattern), with a small handle (not a white cup, not a saucer set)",
  "glass": "served in a tall clear glass tumbler",
  "goblet": "served in a clear footed glass goblet (stemmed milkshake glass)",
  "plate": "on a simple matte dark stoneware plate",
