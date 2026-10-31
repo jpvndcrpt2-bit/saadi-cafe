@@ -42,15 +42,15 @@ def fa(n): return str(n).translate(str.maketrans('0123456789', '۰۱۲۳۴۵۶۷
 def price(c): return fa(f'{PRICE[c]:,}').replace(',', '٬') + ' تومان'
 def U(p): return 'data:font/woff2;base64,' + base64.b64encode(open(FS + p, 'rb').read()).decode()
 CSS = f"""
-@font-face{{font-family:L;src:url('{U("aref-ruqaa/files/aref-ruqaa-arabic-700-normal.woff2")}');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
+@font-face{{font-family:L;src:url('{U("reem-kufi/files/reem-kufi-arabic-700-normal.woff2")}');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
 @font-face{{font-family:L;src:url('{U("aref-ruqaa/files/aref-ruqaa-latin-700-normal.woff2")}');unicode-range:U+0000-00FF}}
-@font-face{{font-family:E;src:url('{U("lemonada/files/lemonada-arabic-600-normal.woff2")}');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
+@font-face{{font-family:E;src:url('{U("cairo/files/cairo-arabic-600-normal.woff2")}');unicode-range:U+0600-06FF,U+200C-200F,U+FB50-FDFF,U+FE70-FEFF}}
 @font-face{{font-family:E;src:url('{U("lemonada/files/lemonada-latin-600-normal.woff2")}');unicode-range:U+0000-00FF}}
 @font-face{{font-family:P;src:url('{U("pacifico/files/pacifico-latin-400-normal.woff2")}')}}
 *{{margin:0;box-sizing:border-box}}body{{width:{W}px;height:{H}px;font-family:E,sans-serif;color:#fff6e6;position:relative;overflow:hidden}}
 img{{position:absolute;inset:0}}
 .t{{position:absolute;left:60px;right:60px;top:872px;text-align:center}}
-.fa{{font-family:L;font-weight:700;font-size:84px;line-height:1.25;direction:rtl;text-shadow:0 3px 10px rgba(60,10,0,.35)}}
+.fa{{font-family:L;font-weight:700;font-size:76px;line-height:1.3;direction:rtl;text-shadow:0 3px 10px rgba(60,10,0,.35)}}
 .en{{font-family:P,cursive;font-size:42px;color:#ffe2a3}}
 .ln{{width:140px;height:3px;background:#ffe2a3;margin:14px auto 12px;opacity:.85}}
 .if{{font-family:E;font-size:25px;direction:rtl;line-height:1.6}}
