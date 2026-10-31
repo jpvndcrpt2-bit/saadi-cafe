@@ -76,4 +76,5 @@ async def main(only=None):
             await pg.evaluate("document.fonts.ready"); await pg.wait_for_timeout(300)
             await pg.screenshot(path=f'img/cards/{it[0]}.jpg', type='jpeg', quality=92)
         await br.close()
-asyncio.run(main(sys.argv[1:] or None))
+if __name__ == "__main__":
+    asyncio.run(main(sys.argv[1:] or None))
