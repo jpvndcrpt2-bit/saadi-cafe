@@ -58,7 +58,7 @@ CONTAINER = {
  "mug": "served in a modern matte sage-green ceramic coffee cup with straight slightly tapered sides and a small square handle, sitting on a matching matte sage-green oval tray-style saucer (a smooth solid single-color matte glaze, no speckles, no pattern)",
  "glass": "served in a tall clear glass tumbler",
  "goblet": "served in a clear footed glass goblet (stemmed milkshake glass)",
- "plate": "on a simple matte dark stoneware plate",
+ "plate": "on a simple matte sage-green round ceramic plate",
 }
 STYLE = "Professional studio food photograph, on a clean modern cafe bar counter, with a softly blurred barista bar and espresso machine in the background, soft warm side light, shallow depth of field, clean uncluttered background, vertical 4:5 framing, no text, no logo, no hands, no spoon, no extra objects."
 def prompt(m):
